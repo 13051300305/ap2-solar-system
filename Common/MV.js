@@ -1,5 +1,3 @@
-// MV.js —— 向量与矩阵工具（按 Angel & Shreiner 8e 教材 Common 库风格）
-// 矩阵为列主序（WebGL / GLSL 默认），长度 16 的一维数组。
 
 "use strict";
 
@@ -47,7 +45,7 @@ function cross(a, b) {
   ];
 }
 
-// ---------- 矩阵（4x4，列主序） ----------
+// ---------- 矩阵 ----------
 function mat4() {
   var m = new Float32Array(16);
   m[0] = 1; m[5] = 1; m[10] = 1; m[15] = 1;
@@ -89,7 +87,7 @@ function rotate(angle, axis) {
   return m;
 }
 
-// 矩阵乘法 a * b（列主序）
+// 矩阵乘法 a * b
 function mult(a, b) {
   var out = mat4();
   for (var col = 0; col < 4; col++) {
@@ -116,7 +114,7 @@ function ortho(left, right, bottom, top, near, far) {
   return m;
 }
 
-// 透视投影矩阵：fovy 为视角（角度）
+// 透视投影矩阵：fovy 为视角
 function perspective(fovy, aspect, near, far) {
   var f = 1.0 / Math.tan(fovy * Math.PI / 360.0);
   var m = mat4();
