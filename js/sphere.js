@@ -1,6 +1,3 @@
-// sphere.js —— 单位球体网格（经纬线划分）
-// 输出顶点位置、法线、纹理坐标与索引，供 VBO 上传。
-
 "use strict";
 
 function createSphere(segmentsLon, segmentsLat) {
@@ -9,12 +6,12 @@ function createSphere(segmentsLon, segmentsLat) {
   var uvs = [];
   var indices = [];
 
-  // 纬度方向：从北极（phi=+90°）到南极（phi=-90°）
+  // 纬度方向
   for (var lat = 0; lat <= segmentsLat; lat++) {
     var phi = Math.PI / 2 - lat * Math.PI / segmentsLat;
     var y = Math.sin(phi);
     var r = Math.cos(phi);
-    // 经度方向：绕一周
+    // 经度方向
     for (var lon = 0; lon <= segmentsLon; lon++) {
       var theta = lon * 2 * Math.PI / segmentsLon;
       var x = r * Math.cos(theta);
@@ -25,7 +22,6 @@ function createSphere(segmentsLon, segmentsLat) {
     }
   }
 
-  // 拼成三角形索引
   for (var la = 0; la < segmentsLat; la++) {
     for (var lo = 0; lo < segmentsLon; lo++) {
       var a = la * (segmentsLon + 1) + lo;
@@ -45,7 +41,7 @@ function createSphere(segmentsLon, segmentsLat) {
   };
 }
 
-// ring.js —— 土星环（扁平圆环带，位于行星赤道面内，y=0）
+// 土星环
 function createRing(inner, outer, segments) {
   var positions = [];
   var normals = [];
