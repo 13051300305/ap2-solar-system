@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>AP2 太阳系 · WebGL 2.0</title>
+<style>
+  body { margin: 0; overflow: hidden; background: #000; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #ccc; }
+  canvas { display: block; }
+  #panel {
+    position: absolute; top: 12px; left: 12px; width: 230px;
+    background: rgba(20, 24, 32, 0.85); border: 1px solid #333; border-radius: 6px;
+    padding: 12px 14px; font-size: 13px;
+  }
+  #panel h3 { margin: 0 0 8px; font-size: 14px; color: #fff; }
+  #panel label { display: block; margin-top: 8px; color: #aaa; }
+  #panel input[type=range] { width: 100%; }
+  #panel .val { float: right; color: #4af; }
+  #panel .check { display: flex; align-items: center; gap: 6px; margin-top: 10px; }
+  #panel .check input { margin: 0; }
+  #proj { position: absolute; bottom: 12px; left: 12px; font-size: 13px; color: #888; }
+  #help { position: absolute; bottom: 12px; right: 12px; font-size: 12px; color: #666; text-align: right; line-height: 1.7; }
+</style>
+</head>
+<body>
+
+<canvas id="glcanvas" width="800" height="600"></canvas>
+
+<div id="panel">
+  <h3>参数面板</h3>
+  <label>公转速度 <span class="val" id="v-orbit">1.0</span>
+    <input type="range" id="s-orbit" min="0" max="3" step="0.1" value="1">
+  </label>
+  <label>自转速度 <span class="val" id="v-spin">1.0</span>
+    <input type="range" id="s-spin" min="0" max="3" step="0.1" value="1">
+  </label>
+  <label>地轴倾角 <span class="val" id="v-tilt">23.5°</span>
+    <input type="range" id="s-tilt" min="0" max="45" step="0.5" value="23.5">
+  </label>
+  <div class="check"><input type="checkbox" id="c-orbits" checked><label for="c-orbits">显示轨道线</label></div>
+</div>
+
+<div id="proj">投影模式：透视（按 O 切换）</div>
+<div id="help">
+  O：正交 / 透视投影切换<br>
+  空格：相机漫游 暂停 / 继续<br>
+  鼠标拖拽：手动旋转视角，随时接管
+</div>
+
+<!-- 顶点着色器 -->
+<script id="vertex-shader" type="x-shader/x-vertex">
+attribute vec4 a_Position;
+attribute vec3 a_Normal;
+attribute vec2 a_UV;
+
+uniform mat4 u_ModelView;
+uniform mat4 u_Projection;
+uniform mat3 u_NormalMatrix;
+
+varying vec2 v_UV;
+varying float v_Diffuse;
+
+void main() {
+  v_UV = a_UV;
+  vec3 N = normalize(u_NormalMatrix * a_Normal);
+  vec3 L = normalize(vec3(0.0, 0.0, 1.0));
+  v_Diffuse = max(dot(N, L), 0.0);
+  gl_Position = u_Projection * u_ModelView * a_Position;
+}
+</script>
+
+<!-- 片元着色器 -->
+<script id="fragment-shader" type="x-shader/x-fragment">
+precision mediump float;
+
+uniform sampler2D u_Sampler;
+uniform float u_Emissive;
+
+varying vec2 v_UV;
+varying float v_Diffuse;
+
+void main() {
+  vec3 texColor = texture2D(u_Sampler, v_UV).rgb;
+  vec3 lit = texColor * (0.3 + 0.7 * v_Diffuse);
+  vec3 color = mix(lit, texColor, u_Emissive);
+  gl_FragColor = vec4(color, 1.0);
+}
+</script>
+
+<script src="Common/initShaders.js"></script>
+<script src="Common/MV.js"></script>
+<script src="Common/webgl-utils.js"></script>
+<script src="js/sphere.js"></script>
+<script src="js/planets.js"></script>
+<script src="js/scene.js"></script>
+<script src="js/camera.js"></script>
+<script src="js/interaction.js"></script>
+<script src="js/main.js"></script>
+
+</body>
+</html>
