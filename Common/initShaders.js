@@ -1,6 +1,3 @@
-// initShaders.js —— 教材配套工具库（按 Angel & Shreiner 8e 原版逻辑实现）
-// 作用：从 <script id="xxx-shader"> 标签里取出着色器源码，编译、链接着色器程序。
-// 用法：var program = initShaders(gl, "vertex-shader", "fragment-shader");
 
 function initShaders(gl, vertexShaderId, fragmentShaderId) {
   function getShader(id) {
