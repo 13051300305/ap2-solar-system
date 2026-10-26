@@ -1,5 +1,3 @@
-// main.js —— 主程序：初始化、纹理、渲染循环
-
 "use strict";
 
 var gl;
@@ -48,7 +46,7 @@ function initBuffers() {
   gl.bindBuffer(gl.ARRAY_BUFFER, orbitVBO);
   gl.bufferData(gl.ARRAY_BUFFER, buildOrbitLines(), gl.STATIC_DRAW);
 
-  // 土星环（相对半径，随土星模型矩阵 scale 一起缩放）
+  // 土星环
   ring = createRing(1.4, 2.4, 64);
   ringPosBuf = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, ringPosBuf);
@@ -61,11 +59,10 @@ function initBuffers() {
 function loadTexture(path) {
   var tex = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, tex);
-  // 先用 1x1 灰色占位，图片加载后再替换
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
     new Uint8Array([128, 128, 128, 255]));
 
-  // 处理纹理上下颠倒：位图坐标系原点在左上，WebGL 原点在左下
+  // 处理纹理上下颠倒
   gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 
   var img = new Image();
@@ -89,7 +86,6 @@ function initTextures() {
     textures[p.name] = loadTexture(p.texture);
   });
 
-  // 轨道线用的白色纹理
   whiteTex = gl.createTexture();
   gl.bindTexture(gl.TEXTURE_2D, whiteTex);
   gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, 1, 1, 0, gl.RGBA, gl.UNSIGNED_BYTE,
