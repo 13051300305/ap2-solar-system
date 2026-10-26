@@ -57,12 +57,12 @@ ap2-solar-system/
 月球轨道面相对地球公转面存在 5.1° 倾角。这一运动没有使用工具库封装好的复合函数，而是用 MV.js 的基本变换手工构造：
 
 ```
-月球局部矩阵 =
-  rotate(5.1°, Z轴)          // 先让轨道面整体倾斜
-  × rotate(月球公转角, Y轴)   // 再让月球绕地球转动
-  × translate(轨道半径)       // 再把月球放到轨道半径处
-  × rotate(月球自转角, Y轴)   // 月球自转
-  × scale(月球半径)
+var m = scale(MOON.radius, MOON.radius, MOON.radius);
+m = mult(rotate(spinAngle, [0, 1, 0]), m);      // 月球自转
+m = mult(translate(MOON.orbit, 0, 0), m);       // 放到轨道半径处
+m = mult(rotate(orbitAngle, [0, 1, 0]), m);     // 绕地球公转
+m = mult(rotate(MOON.orbitTilt, [0, 0, 1]), m); // 轨道面倾角 5.1°
+m = mult(earthMat, m);                          // 再挂到地球矩阵下
 
 最终月球世界矩阵 = 地球矩阵 × 月球局部矩阵
 ```
