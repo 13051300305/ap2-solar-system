@@ -1,4 +1,3 @@
-// webgl-utils.js —— 教材配套工具库（获取 WebGL2 上下文的小帮手）
 function WebGLUtils() {}
 WebGLUtils.setupWebGL = function (canvas, optAttribs) {
   var names = ["webgl2", "webgl", "experimental-webgl"];
