@@ -1,5 +1,3 @@
-// interaction.js —— 鼠标拖拽、键盘、面板绑定
-
 "use strict";
 
 function bindInteraction(gl) {
@@ -35,7 +33,6 @@ function bindInteraction(gl) {
     }
   });
 
-  // 面板滑条
   var sOrbit = document.getElementById("s-orbit");
   var sSpin = document.getElementById("s-spin");
   var sTilt = document.getElementById("s-tilt");
