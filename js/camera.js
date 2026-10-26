@@ -1,5 +1,3 @@
-// camera.js —— 相机：漫游路径、鼠标拖拽接管、正交/透视投影切换
-
 "use strict";
 
 var camera = {
@@ -11,7 +9,7 @@ var camera = {
   isPerspective: true,
 
   update: function (dt) {
-    // 漫游模式：方位角随时间增长（绕场景一周），仰角缓慢起伏
+    // 漫游模式
     if (this.roaming && !this.paused) {
       this.azimuth += dt * 0.25;
       this.elevation = 0.25 + 0.2 * Math.sin(this.azimuth * 0.5);
@@ -40,7 +38,7 @@ var camera = {
     }
   },
 
-  // 鼠标拖拽：直接进入手动接管
+  // 鼠标拖拽
   drag: function (dx, dy) {
     this.roaming = false;
     this.azimuth += dx * 0.005;
