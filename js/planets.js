@@ -1,6 +1,3 @@
-// planets.js —— 天体参数集中配置（评分要求：参数集中，便于调整）
-// 数值为教学用比例，非真实天文比例。
-
 "use strict";
 
 var SUN = {
@@ -11,7 +8,7 @@ var SUN = {
   emissive: true
 };
 
-// 必做：地球（含轴倾角 23.5°）与月球
+// 地球与月球
 var EARTH = {
   name: "地球",
   radius: 0.42,
@@ -32,7 +29,7 @@ var MOON = {
   texture: "textures/moon_1024.jpg"
 };
 
-// 选做 E1：完整太阳系（6 颗行星）
+// 完整太阳系
 var EXTRA_PLANETS = [
   { name: "水星", radius: 0.18, orbit: 2.4, orbitSpeed: 2.6, spinSpeed: 0.4, tilt: 0.0, texture: "textures/mercury.png" },
   { name: "金星", radius: 0.30, orbit: 3.4, orbitSpeed: 1.8, spinSpeed: -0.3, tilt: 177.0, texture: "textures/venus.png" },
