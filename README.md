@@ -121,8 +121,3 @@ gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
 - 所有行星轨道线同时显示
 
 所有天体参数集中在 js/planets.js 中，修改半径、轨道、速度即可调整场景。
-
-## 十、参考
-
-- Angel & Shreiner, Interactive Computer Graphics, Eighth Edition, Ch4-5
-- 《WebGL 编程指南》学习笔记：https://blog.csdn.net/wangxiaochaun/article/details/123218560
